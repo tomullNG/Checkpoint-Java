@@ -1,0 +1,17 @@
+[
+  {
+    "item_id": "A",
+    "name": "Telefon",
+    "count": 50
+  },
+  {
+    "item_id": "B",
+    "name": "Laptop",
+    "count": 20
+  },
+  {
+    "item_id": "C",
+    "name": "Tablet",
+    "count": 10
+  }
+]
