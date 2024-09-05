@@ -32,9 +32,9 @@ public class FileReader {
                 System.err.println("The JSON root node is not an array.");
             }
 
-            System.out.println(vareListe);
+            System.out.println("Lagerbeholdning:");
             for (Vare vare : vareListe.values()) {
-                System.out.println(vare.name);
+                System.out.println("Antall av " + vare.name + " på lager: " + vare.count);
             }
 
         } catch (IOException e) {
