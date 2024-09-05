@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FileReader {
-
     public String jsonFilePath = "src/main/resources/";
     ObjectMapper objectMapper;
 
@@ -54,6 +53,7 @@ public class FileReader {
             if (rootNode.isArray()) {
                 for (JsonNode node : rootNode) {
                     String order_id = getNodeText.getNode(node, "order_id");
+                    String order_status = getNodeText.getNode(node, "order_status");
                     JsonNode orderLineNode = node.get("order_line");
 
                     if (orderLineNode != null && orderLineNode.isArray()) {
@@ -68,7 +68,7 @@ public class FileReader {
                             vareListe.put(vare.item_id, vare);
                         }
 
-                        Ordre ordre = new Ordre(order_id, vareListe);
+                        Ordre ordre = new Ordre(order_id, order_status ,vareListe);
                         ordreListe.put(ordre.order_id, ordre);
                     }
                 }
@@ -82,6 +82,7 @@ public class FileReader {
                 ordre.vare.forEach((s, vare) ->
                         System.out.println(vare.item_id + ": " + vare.name + " (Count: " + vare.count + ")"));
             }*/
+
         } catch (IOException e) {
             e.printStackTrace();
         }
