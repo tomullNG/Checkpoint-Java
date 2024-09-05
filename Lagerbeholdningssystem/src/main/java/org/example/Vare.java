@@ -1,9 +1,11 @@
 package org.example;
 
 public class Vare {
-    String item_id;
-    String name;
-    int count;
+    public String item_id;
+    public String name;
+    public int count;
+    // Default constructor
+    public Vare() {}
 
     public Vare(String item_id, String name, int count) {
         this.item_id = item_id;

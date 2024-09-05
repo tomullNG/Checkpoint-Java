@@ -12,12 +12,13 @@ public class FileReader {
 
     public String jsonFilePath = "src/main/java/resources/";
 
-    public void ReadFile(String fileName) {
+    public Map<String, Vare> ReadFile(String fileName) {
+        Map<String, Vare> vareListe = new HashMap<>();
+
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(new File(jsonFilePath + fileName));
 
-            Map<String, Vare> vareListe = new HashMap<>();
 
             if (rootNode.isArray()) {
                 for (JsonNode node : rootNode) {
@@ -32,14 +33,11 @@ public class FileReader {
                 System.err.println("The JSON root node is not an array.");
             }
 
-            System.out.println(vareListe);
-            for (Vare vare : vareListe.values()) {
-                System.out.println(vare.name);
-            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return vareListe;
 
     }
 }
