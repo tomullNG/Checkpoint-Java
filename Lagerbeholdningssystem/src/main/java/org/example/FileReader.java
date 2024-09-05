@@ -10,11 +10,12 @@ import java.util.Map;
 
 public class FileReader {
 
-    public String jsonFilePath = "src/main/java/resources/";
+    public String jsonFilePath = "src/main/resources/";
+    ObjectMapper objectMapper;
 
     public void ReadFile(String fileName) {
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(new File(jsonFilePath + fileName));
 
             Map<String, Vare> vareListe = new HashMap<>();
@@ -42,4 +43,48 @@ public class FileReader {
         }
 
     }
+
+    public void ReadOrderData(String filename) {
+        try {
+            objectMapper = new ObjectMapper();
+            JsonNode rootNode = objectMapper.readTree(new File(jsonFilePath + filename));
+            Map<String, Vare> vareListe;
+            Map<String, Ordre> ordreListe = new HashMap<>();
+
+            if (rootNode.isArray()) {
+                for (JsonNode node : rootNode) {
+                    String order_id = getNodeText.getNode(node, "order_id");
+                    JsonNode orderLineNode = node.get("order_line");
+
+                    if (orderLineNode != null && orderLineNode.isArray()) {
+                        vareListe = new HashMap<>();
+
+                        for (JsonNode item : orderLineNode) {
+                            //System.out.println("Item: " + item);
+                            String item_id = getNodeText.getNode(item, "item_id");
+                            String item_name = getNodeText.getNode(item, "item_name");
+                            int item_count = getNodeInt.getNode(item, "count");
+                            Vare vare = new Vare(item_id, item_name, item_count);
+                            vareListe.put(vare.item_id, vare);
+                        }
+
+                        Ordre ordre = new Ordre(order_id, vareListe);
+                        ordreListe.put(ordre.order_id, ordre);
+                    }
+                }
+            } else {
+                System.err.println("The JSON root node is not an array.");
+            }
+
+            /*System.out.println("Ordreliste: " + ordreListe);
+            System.out.println("Vareliste: ");
+            for (Ordre ordre : ordreListe.values()) {
+                ordre.vare.forEach((s, vare) ->
+                        System.out.println(vare.item_id + ": " + vare.name + " (Count: " + vare.count + ")"));
+            }*/
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
