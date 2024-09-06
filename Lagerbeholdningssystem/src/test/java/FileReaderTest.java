@@ -17,7 +17,10 @@ public class FileReaderTest {
         Vare firstVare = null;
 
         if (iterator.hasNext()) {
-            firstVare = iterator.next();
+            Vare vare = iterator.next();
+            if (vare.item_id.equals("A")) {
+                firstVare = vare;
+            }
         }
 
         assert firstVare != null;
