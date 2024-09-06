@@ -22,6 +22,7 @@ public class UserInputHandler {
                     break;
 
                 case 2:
+                    //fileReader.ReadFile("lagerbeholdning.json");
                     VareHandler handler = new VareHandler();
                     VareListe<Vare> vareListe = new VareListe<>();
                     vareListe = fileReader.ReadFile("lagerbeholdning.json", handler);

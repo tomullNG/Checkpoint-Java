@@ -22,6 +22,8 @@ import java.io.File;
  */
 public class FileWriter {
 
+    public String jsonFilePath = "src/main/resources/";
+
     public<T> void WriteToFile(String filename, VareListe<T> vareListe){
         // Convert map values to list
         List<T> vareList = new ArrayList<>(vareListe.liste.values());
@@ -57,7 +59,7 @@ public class FileWriter {
         }
 
         //writing updated storage
-        WriteToFile("output.json", vareListe);
+        WriteToFile(jsonFilePath + lagerFile, vareListe);
 
         System.out.println("TEST");
         for (Vare vare : vareListe.liste.values()){
