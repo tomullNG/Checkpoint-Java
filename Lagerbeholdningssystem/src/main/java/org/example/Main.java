@@ -10,26 +10,14 @@ public class Main {
         FileWriter fw = new FileWriter();
         fw.UpdateStorage("A -20;C -5", lagerFil);
 
-        /*
-        FileReader fr = new FileReader();
-        Map<String, Vare> vareListe = new HashMap<>();
-        vareListe = fr.ReadFile("lagerbeholdning.json");
-        for (Vare vare : vareListe.values()) {
-            System.out.println(vare.name + " " + vare.count);
-        }
-        */
 
+        // TODO: Add initializer of writing data to lagerbeholdning.json
 
-        /*
-        InputHelper inputHelper = new InputHelper();
+        //FileReader fr = new FileReader();
+        //fr.ReadFile("lagerbeholdning.json");
+        //fr.ReadOrderData("ordredata.json");
 
-        String name = inputHelper.getString("Enter your name: ");
-        int age = inputHelper.getInt("Enter your age: ");
-
-        System.out.println("Hello, " + name + "!");
-        System.out.println("You are " + age + " years old.");
-
-        inputHelper.close();
-        */
+        UserInputHandler userInputHandler = new UserInputHandler();
+        userInputHandler.openCommunication();
     }
 }
