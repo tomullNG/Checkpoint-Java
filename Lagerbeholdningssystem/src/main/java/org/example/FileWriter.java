@@ -21,6 +21,8 @@ import java.io.File;
  * HVIS VARE IKKE EKSISTERER, LAG NY KEY ID OG LEGG TIL VARE
  */
 public class FileWriter {
+    public String jsonFilePath = "src/main/resources/";
+    public static String restockFile = "ItemThreshold.json";
 
     public String jsonFilePath = "src/main/resources/";
 
@@ -36,7 +38,7 @@ public class FileWriter {
             e.printStackTrace();
         }
     }
-
+    //Legg til måte å skrive ut leverandør rapport
     public void UpdateStorage(String input, String lagerFile) {
         VareListe<Vare> vareListe = new VareListe();
         FileReader fr = new FileReader();
@@ -66,5 +68,34 @@ public class FileWriter {
             System.out.println(vare.name + " " + vare.count);
         }
 
+        //Restocking if necessary
+        Restock(lagerFile);
+    }
+
+    //method for restocking the amount of items in storage IF they are bellow a given threshold
+    public void Restock(String lagerFile) {
+        VareListe<Vare> vareListe;
+        VareHandler vareHandler = new VareHandler();
+
+        VareListe<VareThreshold> restockListe;
+        RestockHandler restockHandler = new RestockHandler();
+
+        FileReader fr = new FileReader();
+        vareListe = fr.ReadFile(lagerFile, vareHandler);
+        restockListe = fr.ReadFile(restockFile, restockHandler);
+
+        //iterating over and updating values that are bellow the given threshold
+        String key;
+        for (Vare vare : vareListe.liste.values()){
+            key = vare.item_id;
+            if (restockListe.liste.get(key).threshold > vare.count){
+                System.out.print("System restocking item: " + vare.name + ". \nOld count: " + vare.count + ". ");
+                vare.count += restockListe.liste.get(key).restock;
+                System.out.println("New count: " + vare.count);
+            }
+        }
+
+        //updating the file
+        WriteToFile(jsonFilePath + lagerFile, vareListe);
     }
 }
