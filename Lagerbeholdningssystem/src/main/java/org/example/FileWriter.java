@@ -24,8 +24,6 @@ public class FileWriter {
     public String jsonFilePath = "src/main/resources/";
     public static String restockFile = "ItemThreshold.json";
 
-    public String jsonFilePath = "src/main/resources/";
-
     public<T> void WriteToFile(String filename, VareListe<T> vareListe){
         // Convert map values to list
         List<T> vareList = new ArrayList<>(vareListe.liste.values());
