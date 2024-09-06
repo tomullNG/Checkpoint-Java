@@ -41,7 +41,7 @@ public class UserInputHandler {
                 case 4:
                     String lagerFil = "lagerbeholdning.json";
                     FileWriter fileWriter = new FileWriter();
-                    String updateInfo = inputHelper.getString("Oppdater lagerbeholdning på formatet: 'item_id -count;item_id -count;...': ");
+                    String updateInfo = inputHelper.getStringLager("Oppdater lagerbeholdning på formatet: 'item_id -count;item_id -count;...': ");
                     System.out.println(updateInfo);
                     fileWriter.UpdateStorage(updateInfo, lagerFil);
                     System.out.println("Lagerbeholdning updated.");
