@@ -22,7 +22,13 @@ public class UserInputHandler {
                     break;
 
                 case 2:
-                    fileReader.ReadFile("lagerbeholdning.json");
+                    VareHandler handler = new VareHandler();
+                    VareListe<Vare> vareListe = new VareListe<>();
+                    vareListe = fileReader.ReadFile("lagerbeholdning.json", handler);
+                    System.out.println("Lagerbeholdning:");
+                    for (Vare vare : vareListe.liste.values()) {
+                        System.out.println("Antall av " + vare.name + " på lager: " + vare.count);
+                    }
                     break;
 
                 case 3:
