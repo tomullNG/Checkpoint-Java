@@ -21,7 +21,9 @@ public class InputHelper {
             scanner.next();
             System.out.print(prompt);
         }
-        return scanner.nextInt();
+        int result = scanner.nextInt();
+        scanner.nextLine();
+        return result;
     }
 
     public void close() {
