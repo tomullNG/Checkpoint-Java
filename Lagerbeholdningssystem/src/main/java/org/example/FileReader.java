@@ -8,31 +8,25 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+
+//Oppdater så denne kan brukes for RestockHandler også.
 public class FileReader {
 
     public String jsonFilePath = "src/main/java/resources/";
 
-    public Map<String, Vare> ReadFile(String fileName) {
-        Map<String, Vare> vareListe = new HashMap<>();
+    public<T> VareListe<T> ReadFile(String fileName, JsonStructureHandler<T> handler) {
+        VareListe<T> vareListe = new VareListe<>();
 
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(new File(jsonFilePath + fileName));
 
-
             if (rootNode.isArray()) {
-                for (JsonNode node : rootNode) {
-                    String itemId = getNodeText.getNode(node, "item_id");
-                    String name = getNodeText.getNode(node, "name");
-                    int count = getNodeInt.getNode(node, "count");
+                handler.handleNode(rootNode, vareListe);
 
-                    Vare vare = new Vare(itemId, name, count);
-                    vareListe.put(vare.item_id, vare);
-                }
             } else {
                 System.err.println("The JSON root node is not an array.");
             }
-
 
         } catch (IOException e) {
             e.printStackTrace();

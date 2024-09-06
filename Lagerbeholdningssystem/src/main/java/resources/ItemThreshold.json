@@ -1,0 +1,17 @@
+[
+  {
+    "item_id": "A",
+    "threshold": 10,
+    "restock": 40
+  },
+  {
+    "item_id": "B",
+    "threshold": 5,
+    "restock": 15
+  },
+  {
+    "item_id": "C",
+    "threshold": 5,
+    "restock": 5
+  }
+]

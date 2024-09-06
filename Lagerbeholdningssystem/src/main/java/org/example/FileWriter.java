@@ -22,16 +22,24 @@ import java.io.File;
  */
 public class FileWriter {
 
-    public void WriteToFile(String input, String lagerFile) {
-        Map<String, Vare> vareListe = new HashMap<>();
-        FileReader fr = new FileReader();
-        vareListe = fr.ReadFile(lagerFile);
+    public<T> void WriteToFile(String filename, VareListe<T> vareListe){
+        // Convert map values to list
+        List<T> vareList = new ArrayList<>(vareListe.liste.values());
 
-        /*System.out.println(input);
-        System.out.println(vareListe);
-        for (Vare vare : vareListe.values()) {
-            System.out.println(vare.name);
-        }*/
+        // Write to JSON file
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            objectMapper.writeValue(new File(filename), vareList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void UpdateStorage(String input, String lagerFile) {
+        VareListe<Vare> vareListe = new VareListe();
+        FileReader fr = new FileReader();
+        VareHandler vareHandler = new VareHandler();
+        vareListe = fr.ReadFile(lagerFile, vareHandler);
 
         String[] inputVarer = input.split(";");
         String key;
@@ -41,26 +49,18 @@ public class FileWriter {
             String[] parts = vare.split(" ");
             key = parts[0];
             count = parts[1];
-            if (vareListe.containsKey(key)){
-                temp_vare = vareListe.get(key);
+            if (vareListe.liste.containsKey(key)){
+                temp_vare = vareListe.liste.get(key);
                 temp_vare.count += Integer.valueOf(count);
-                vareListe.put(key, temp_vare);
+                vareListe.liste.put(key, temp_vare);
             }
         }
 
-        // Convert map values to list
-        List<Vare> vareList = new ArrayList<>(vareListe.values());
-
-        // Write to JSON file
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            objectMapper.writeValue(new File("output.json"), vareList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //writing updated storage
+        WriteToFile("output.json", vareListe);
 
         System.out.println("TEST");
-        for (Vare vare : vareListe.values()){
+        for (Vare vare : vareListe.liste.values()){
             System.out.println(vare.name + " " + vare.count);
         }
 

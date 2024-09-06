@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         String lagerFil = "lagerbeholdning.json";
         FileWriter fw = new FileWriter();
-        fw.WriteToFile("A -10;C 10;B 10", lagerFil);
+        fw.UpdateStorage("A -20;C -5", lagerFil);
 
         /*
         FileReader fr = new FileReader();
