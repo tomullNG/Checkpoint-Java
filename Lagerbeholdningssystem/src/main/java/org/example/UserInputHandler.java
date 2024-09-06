@@ -22,7 +22,7 @@ public class UserInputHandler {
                     break;
 
                 case 2:
-                    fileReader.ReadFile("lagerbeholdning.json");
+                    //fileReader.ReadFile("lagerbeholdning.json");
                     break;
 
                 case 3:

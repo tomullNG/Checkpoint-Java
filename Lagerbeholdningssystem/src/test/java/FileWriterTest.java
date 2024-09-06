@@ -1,13 +1,11 @@
 import org.example.*;
 import org.junit.jupiter.api.Test;
 
-import java.util.Iterator;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FileWriterTest {
     @Test
-    public void writeLagerbeholdningTest() {
+    public void updateLagerbeholdningTest() {
         FileWriter fw = new FileWriter();
         FileReader fr = new FileReader();
         VareHandler vh = new VareHandler();
